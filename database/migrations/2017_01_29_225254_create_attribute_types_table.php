@@ -18,6 +18,9 @@ class CreateAttributeTypesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
+            $table->integer('student_type_id')->unsigned();
+
+            $table->foreign('student_type_id')->references('id')->on('student_types');
         });
     }
 

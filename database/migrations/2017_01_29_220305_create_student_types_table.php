@@ -17,6 +17,7 @@ class CreateStudentTypesTable extends Migration
         Schema::create('student_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('code');
             $table->text('description');
         });
     }
