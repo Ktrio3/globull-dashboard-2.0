@@ -14,3 +14,22 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//===================================================================
+// Public Site
+//===================================================================
+Route::group(['middleware' => 'auth.passive'], function () {
+  Route::get('/', function () { return view('home', ['sticky_nav' => true]); }); //home
+
+});
+
+//===================================================================
+// Authenticated Site
+//===================================================================\
+Route::group(['prefix' => '/dashboard'], function () {
+  Route::get('/logout', function () {})->name('logout'); //logout
+
+  Route::group(['prefix' => '/admin', ], function() {
+      Route::resource('student-types', 'StudentTypeController');
+  });
+});
