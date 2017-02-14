@@ -11,30 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-//===================================================================
-// Public Site
-//===================================================================
-Route::group(['middleware' => 'auth.passive'], function () {
-  Route::get('/', function () { return view('home', ['sticky_nav' => true]); }); //home
-
-});
-
 //===================================================================
 // Authenticated Site
 //===================================================================\
 Route::get('/logout', function () {})->name('logout'); //logout
 
-Route::group(['prefix' => '/admin', ], function() {
-    Route::get('/', function(){
-      return view('admin.admin');
-    })->name('admin.index');
+Route::group(['middleware' => 'auth'], function() {
 
-    Route::resource('student-types', 'StudentTypeController');
-    Route::resource('attributes', 'AttributeController');
-    Route::resource('attribute-types', 'AttributeTypeController');
+  //Home route. If student, load their view. If admin, redirect to admin.
+  Route::get('/', function () {
+      return view('welcome');
+  });
 
+  Route::group(['prefix' => '/admin', ], function() {
+      Route::get('/', function(){
+        return view('admin.admin');
+      })->name('admin.index');
+
+      Route::resource('student-types', 'StudentTypeController');
+      Route::resource('attributes', 'AttributeController');
+      Route::resource('attribute-types', 'AttributeTypeController');
+
+  });
 });
