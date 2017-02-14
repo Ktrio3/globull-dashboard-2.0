@@ -171,13 +171,13 @@
       <div class="working">
         <h3>Working</h3>
         <p><em>Please Wait</em></p>
-        <p><img src="{{ url('images/loading.gif') }}"></p>
+        <p><img src="{{ url('/images/loading.gif') }}"></p>
       </div>
     </div>
 
     <!-- Scripts -->
     <script>var api = '{{ env('INTERNAL_API') }}';</script>
-    <script src="{{ url('js/app.min.js') }}"></script>
+    <script src="{{ asset('public/js/app.min.js') }}"></script>
     @yield('js')
 </body>
 </html>

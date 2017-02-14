@@ -9,18 +9,18 @@
 
 @section('css')
 @parent
-    <link rel="stylesheet" href="/Datatables/datatables.min.css">
+    <link rel="stylesheet" href="{{url('Datatables/datatables.min.css')}}">
 
 @endsection
 
 @section('js')
 @parent
-    <script src="/Datatables/datatables.min.js"></script>
+    <script src="{{url('Datatables/datatables.min.js')}}"></script>
     <script>
       var student_types = <?php echo json_encode(App\StudentType::with('attributes')->get()) ?>;
       var STUDTYPE_EDIT_URL = "{{route('student-types.index')}}";
     </script>
-    <script src="/js/student-types-view.js"></script>
+    <script src="{{url('js/student-types-view.js')}}"></script>
 @endsection
 
 @section('content')

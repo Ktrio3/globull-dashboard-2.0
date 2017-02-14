@@ -10,16 +10,16 @@
 
 @section('css')
 @parent
-<link href="/css/select2.min.css" rel="stylesheet" />
+<link href="{{url('/css/select2.min.css')}}" rel="stylesheet" />
 @endsection
 
 @section('js')
 @parent
-<script src="/js/select2.min.js"></script>
+<script src="{{url('/js/select2.min.js')}}"></script>
 <script>
   var attributes = <?php echo json_encode(App\Attribute::all()) ?>;
 </script>
-<script src="/js/attribute-select.js"></script>
+<script src="{{url('/js/attribute-select.js')}}"></script>
 @endsection
 
 @section('content')

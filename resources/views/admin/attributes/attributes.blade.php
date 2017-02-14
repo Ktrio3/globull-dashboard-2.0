@@ -9,17 +9,17 @@
 
 @section('css')
 @parent
-    <link rel="stylesheet" href="/Datatables/datatables.min.css">
+    <link rel="stylesheet" href="{{url('/Datatables/datatables.min.css')}}">
 @endsection
 
 @section('js')
 @parent
-    <script src="/Datatables/datatables.min.js"></script>
+    <script src="{{url('/Datatables/datatables.min.js')}}"></script>
     <script>
       var attributes = <?php echo json_encode(App\Attribute::with('statuses')->get()) ?>;
       var ATTR_EDIT_URL = "{{route('attributes.index')}}";
     </script>
-    <script src="/js/attributes-view.js"></script>
+    <script src="{{url('/js/attributes-view.js')}}"></script>
 @endsection
 
 @section('content')

@@ -10,12 +10,12 @@
 
 @section('css')
 @parent
-  <link rel="stylesheet" href="/Datatables/datatables.min.css">
+  <link rel="stylesheet" href="{{url('/Datatables/datatables.min.css')}}">
 @endsection
 
 @section('js')
 @parent
-  <script src="/Datatables/datatables.min.js"></script>
+  <script src="{{url('/Datatables/datatables.min.js')}}"></script>
 @endsection
 
 @section('content')
