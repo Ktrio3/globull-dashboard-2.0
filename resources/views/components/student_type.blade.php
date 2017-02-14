@@ -12,6 +12,7 @@
       {{Form::bsTextarea('description', "Student Type Description", null, ['required', 'style' => 'height:80px;'])}}
     </div>
   </div>
+  @include('components.select_attributes')
   <div class="row">
     <div class="col-xs-12">
       {{Form::submit('Save Student Type', ['class' => 'btn btn-primary', 'style' => 'margin-bottom:20px;'])}}

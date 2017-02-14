@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StudentType extends Model
+class Status extends Model
 {
     //
     public $timestamps = false;
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'attribute_id'];
     protected $fillable = ['name', 'code', 'description'];
 
-    public function attributes()
+    public function attribute()
     {
-      return $this->belongsToMany('App\Attribute');
+      return $this->belongsTo('App\Attribute');
     }
 }

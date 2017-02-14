@@ -41,6 +41,9 @@ class StudentTypeController extends Controller
     {
         //
         $student_type = StudentType::create($request->only(['name', 'code', 'description']));
+
+        $student_type->attributes()->sync($request['attributes']);
+
         return redirect()->route('student-types.index')->with('status', 'Student Type created!');
     }
 
@@ -82,6 +85,8 @@ class StudentTypeController extends Controller
         //
         $student_type->fill($request->only(['name', 'code', 'description']));
         $student_type->save();
+
+        $student_type->attributes()->sync($request['attributes']);
 
         return redirect()->route('student-types.index')->with('status', 'Student Type updated!');;
     }

@@ -20,7 +20,7 @@ class CreateAttributeTypesTable extends Migration
             $table->string('description');
             $table->integer('student_type_id')->unsigned();
 
-            $table->foreign('student_type_id')->references('id')->on('student_types');
+            $table->foreign('student_type_id')->references('id')->on('student_types')->onDelete('cascade');
         });
     }
 

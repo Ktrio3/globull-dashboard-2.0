@@ -2,25 +2,24 @@
 
 @section('breadcrumbs')
 @parent
-<li class="last">{{ "Student Types" }}</li>
+<li class="last">{{ "Attribute Types" }}</li>
 @endsection
 
-@section('pagetitle') Student Types @endsection
+@section('pagetitle') Attribute Types @endsection
 
 @section('css')
 @parent
     <link rel="stylesheet" href="/Datatables/datatables.min.css">
-
 @endsection
 
 @section('js')
 @parent
     <script src="/Datatables/datatables.min.js"></script>
     <script>
-      var student_types = <?php echo json_encode(App\StudentType::with('attributes')->get()) ?>;
-      var STUDTYPE_EDIT_URL = "{{route('student-types.index')}}";
+      var attribute_types = <?php echo json_encode(App\AttributeType::with('attributes')->get()) ?>;
+      var ATTR_TYPE_EDIT_URL = "{{route('attribute-types.index')}}";
     </script>
-    <script src="/js/student-types-view.js"></script>
+    <script src="/js/attribute-types-view.js"></script>
 @endsection
 
 @section('content')
@@ -47,23 +46,17 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <table class="table table-striped" id="student-types-table">
+      <table class="table table-striped" id="attributes-table">
           <thead>
               <tr>
                   <th>
-                      Student Type
-                  </th>
-                  <th>
-                      Import Code
+                      Attribute Type
                   </th>
                   <th>
                       Description
                   </th>
-                  <th>
-                      Num. Students
-                  </th>
                   <th style="width:50px;">
-                      Attr.
+                      Attributes
                   </th>
               </tr>
           </thead>

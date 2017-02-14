@@ -15,7 +15,7 @@
 @endsection
 
 @section('breadcrumbs')
-<li><a href="{{ url('admin') }}">Admin</a> &gt;</li>
+<li><a href="{{ route('admin.index') }}">Admin</a> &gt;</li>
 @endsection
 
 @section('js')

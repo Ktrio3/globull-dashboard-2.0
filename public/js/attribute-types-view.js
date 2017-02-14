@@ -1,11 +1,9 @@
 $(document).ready(function(){
-    var table = $('#student-types-table').DataTable({
-        "data": student_types,
+    var table = $('#attributes-table').DataTable({
+        "data": attribute_types,
         "columns": [
           { "data": "name" },
-          { "data": "code" },
           { "data": "description" },
-          { "data": "id" },
           {
               "className":      'details-control',
               "orderable":      false,
@@ -17,7 +15,7 @@ $(document).ready(function(){
         "columnDefs": [
           {
             "render": function(data, type, row){
-              return "<a href='" + STUDTYPE_EDIT_URL + '/' + row.id + "/edit'>" + data + "</a>"
+              return "<a href='" + ATTR_TYPE_EDIT_URL + '/' + row.id + "/edit'>" + data + "</a>"
             },
             "targets": 0
           }
@@ -26,7 +24,7 @@ $(document).ready(function(){
     });
 
     // Add event listener for opening and closing details
-    $('#student-types-table tbody').on('click', 'td.details-control', function () {
+    $('#attributes-table tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
 
@@ -50,13 +48,10 @@ r = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;
     '<thead>'+
       '<tr>'+
         '<th>'+
-          'Attribute'+
+          'Status'+
         '</th>'+
         '<th>'+
           'Code'+
-        '</th>'+
-        '<th>'+
-          'Attribute Type'+
         '</th>'+
         '<th>'+
           'Description'+
@@ -68,7 +63,6 @@ r = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;
     d.attributes.forEach(function(value){
       r += '<tr><td>'+ value.name +'</td>'+
           '<td>'+ value.code +'</td>'+
-          '<td>'+ '1' +'</td>'+
           '<td>'+ value.description +'</td></tr>'
     });
 

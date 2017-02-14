@@ -30,6 +30,13 @@ Route::group(['prefix' => '/dashboard'], function () {
   Route::get('/logout', function () {})->name('logout'); //logout
 
   Route::group(['prefix' => '/admin', ], function() {
+      Route::get('/', function(){
+        return view('admin.admin');
+      })->name('admin.index');
+
       Route::resource('student-types', 'StudentTypeController');
+      Route::resource('attributes', 'AttributeController');
+      Route::resource('attribute-types', 'AttributeTypeController');
+
   });
 });
