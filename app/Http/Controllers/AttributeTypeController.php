@@ -13,6 +13,15 @@ class AttributeTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+     {
+         $this->middleware('auth.modder', ['except' => [
+             'index',
+             'barAction',
+         ]]);
+     }
+     
     public function index()
     {
         //

@@ -100,9 +100,6 @@
         @else
         <div>
         @endif
-        @if (Auth::check())
-          @include('dashboard.navbar.navbar')
-        @endif
         <!-- Display Errors -->
         @include('common.errors')
         @include('common.statuses')
@@ -177,7 +174,7 @@
 
     <!-- Scripts -->
     <script>var api = '{{ env('INTERNAL_API') }}';</script>
-    <script src="{{ asset('public/js/app.min.js') }}"></script>
+    <script src="{{ asset('/js/app.min.js') }}"></script>
     @yield('js')
 </body>
 </html>

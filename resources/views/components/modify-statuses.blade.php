@@ -18,6 +18,9 @@
                   Description
               </th>
               <th>
+                  Completed
+              </th>
+              <th>
                   Delete
               </th>
             </tr>

@@ -14,6 +14,16 @@ class AttributeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+     {
+         $this->middleware('auth.modder', ['except' => [
+             'index',
+             'barAction',
+         ]]);
+     }
+
+     
     public function index()
     {
         //
@@ -55,6 +65,11 @@ class AttributeController extends Controller
             $newStatus->name = $status['name'];
             $newStatus->code = $status['code'];
             $newStatus->description = $status['description'];
+
+            if(isset($status['complete']) && $status['complete'] == 1)
+              $newStatus->complete = $status['complete'];
+            else
+              $newStatus->complete = 0;
 
             $attribute->statuses()->save($newStatus);
           }
@@ -130,6 +145,12 @@ class AttributeController extends Controller
               $newStatus->name = $status['name'];
               $newStatus->code = $status['code'];
               $newStatus->description = $status['description'];
+
+              if(isset($status['complete']) && $status['complete'] == 1)
+                $newStatus->complete = $status['complete'];
+              else
+                $newStatus->complete = 0;
+
               $newStatus->save();
             }
             else{
@@ -138,6 +159,11 @@ class AttributeController extends Controller
               $newStatus->name = $status['name'];
               $newStatus->code = $status['code'];
               $newStatus->description = $status['description'];
+
+              if(isset($status['complete']) && $status['complete'] == 1)
+                $newStatus->complete = $status['complete'];
+              else
+                $newStatus->complete = 0;
 
               $attribute->statuses()->save($newStatus);
 

@@ -58,6 +58,9 @@ r = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;
         '<th>'+
           'Description'+
         '</th>'+
+        '<th>'+
+          'Complete'+
+        '</th>'+
       '</tr>'+
     '</thead>'+
     '<tbody>';
@@ -65,7 +68,15 @@ r = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;
     d.statuses.forEach(function(value){
       r += '<tr><td>'+ value.name +'</td>'+
           '<td>'+ value.code +'</td>'+
-          '<td>'+ value.description +'</td></tr>'
+          '<td>'+ value.description +'</td>'
+      if(value.complete == 1)
+      {
+        r += "<td><span style='color:green;font-size: 2em; margin-top:5px;' class='glyphicon glyphicon-check'></span></td></tr>"
+      }
+      else
+      {
+        r += "<td><span style='color:red;font-size: 2em; margin-top:5px;' class='glyphicon glyphicon-remove'></span></td></tr>"
+      }
     });
 
   return r + '</tbody>'+'</table>';

@@ -35,8 +35,10 @@ class USFSSOMiddleware
         } else if (Auth::check()) {
             return $next($request);
         } else if (phpCAS::isAuthenticated()) {
-            //Check if the user is an admin
-            $user = User::where('netid', phpCAS::getUser())->first();
+            //Check if this is a student in the database
+            // Note that this is currently using netid. This should be backup.
+            // Switch to UID as primary later.
+            $user = Student::where('netid', phpCAS::getUser())->first();
 
             //var_dump(phpCAS::getAttributes());die();
 
@@ -46,6 +48,7 @@ class USFSSOMiddleware
               return $next($request);
             }
 
+            //Prompt with message later
             return redirect('http://www.usf.edu/orientation/');
 
         } else {

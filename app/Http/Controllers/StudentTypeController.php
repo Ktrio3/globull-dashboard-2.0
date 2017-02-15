@@ -8,13 +8,26 @@ use Illuminate\Http\Request;
 class StudentTypeController extends Controller
 {
     /**
+     * Instantiate a new UserController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth.modder', ['except' => [
+            'index',
+            'barAction',
+        ]]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        //Available to ALL users
         return view('admin.student_types.student_types');
     }
 
@@ -25,7 +38,7 @@ class StudentTypeController extends Controller
      */
     public function create()
     {
-        //
+        //Only available to modders
         $student_type = new StudentType();
 
         return view('admin.student_types.create_student_type', array('student_type' => $student_type));
@@ -39,7 +52,7 @@ class StudentTypeController extends Controller
      */
     public function store(Request $request, StudentType $student_type)
     {
-        //
+        //Only available to modders
         $student_type = StudentType::create($request->only(['name', 'code', 'description']));
 
         $student_type->attributes()->sync($request['attributes']);
@@ -68,8 +81,7 @@ class StudentTypeController extends Controller
      */
     public function edit(StudentType $student_type)
     {
-        //
-
+        //Only available to modders
         return view('admin.student_types.update_student_type', array('student_type' => $student_type));
     }
 
@@ -82,7 +94,7 @@ class StudentTypeController extends Controller
      */
     public function update(Request $request, StudentType $student_type)
     {
-        //
+        //Only available to modders
         $student_type->fill($request->only(['name', 'code', 'description']));
         $student_type->save();
 

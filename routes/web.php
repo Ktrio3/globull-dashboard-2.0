@@ -16,13 +16,18 @@
 //===================================================================\
 Route::get('/logout', function () {})->name('logout'); //logout
 
-Route::group(['middleware' => 'auth'], function() {
-
+Route::group(['middleware' => 'auth.student'], function() {
   //Home route. If student, load their view. If admin, redirect to admin.
   Route::get('/', function () {
-      return view('welcome');
-  });
 
+    //Check if admin
+
+    //Else if student
+    return view('welcome');
+  });
+});
+
+Route::group(['middleware' => 'auth.admin'], function() {
   Route::group(['prefix' => '/admin', ], function() {
       Route::get('/', function(){
         return view('admin.admin');
