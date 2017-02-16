@@ -11,7 +11,7 @@ $(document).ready(function(){
               "orderable":      false,
               "searchable":     false,
               "data": null,
-              "defaultContent": "<span class='glyphicon glyphicon-plus'></span>"
+              "defaultContent": "<span class='glyphicon glyphicon-plus-sign' style='font-size:2em;color:green;'></span>"
           },
         ],
         "columnDefs": [
@@ -34,12 +34,17 @@ $(document).ready(function(){
             // This row is already open - close it
             row.child.hide();
             tr.removeClass('shown');
+
         }
         else {
             // Open this row
             row.child( format(row.data()) ).show();
             tr.addClass('shown');
         }
+
+        //Change dropdown icons
+        $('td.details-control').html("<span class='glyphicon glyphicon-plus-sign' style='font-size:2em;color:green;'></span>");
+        $('tr.shown td.details-control').html("<span class='glyphicon glyphicon-minus-sign' style='font-size:2em;color:red;'></span>");
     } );
 });
 

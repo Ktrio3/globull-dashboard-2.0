@@ -7,7 +7,7 @@ use phpCAS;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
-class Modder
+class Master
 {
     /**
      * Handle an incoming request.
@@ -20,7 +20,7 @@ class Modder
     {
       $user = Auth::user();
 
-      if($user->role_id <= 2) //Modder role
+      if($user->role_id == 1) //Master role
       {
         return $next($request);
       }
@@ -33,6 +33,6 @@ class Modder
       //$routePrefix = $route.
 
       //Prompt with message later
-      return redirect()->route($resource . '.index')->with('error', 'Access denied.');
+      return redirect()->route('admin.index')->with('error', 'Access denied.');
     }
 }

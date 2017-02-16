@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'auth.admin' => \App\Http\Middleware\USFSSOMiddleware::class,
         'auth.student' => \App\Http\Middleware\USFSSOMiddlewareStudent::class,
         'auth.modder' => \App\Http\Middleware\Modder::class,
+        'auth.master' => \App\Http\Middleware\Master::class,
     ];
 }

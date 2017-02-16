@@ -7,6 +7,12 @@
 
 @section('pagetitle') Admin @endsection
 
+@section('navbar')
+  @if (Auth::check())
+    @include('admin.navbar.navbar')
+  @endif
+@endsection
+
 @section('css')
 <!-- Dashboard -->
 <link rel="stylesheet" href="{{ url('css/dashboard.min.css') }}" />

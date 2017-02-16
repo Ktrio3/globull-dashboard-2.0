@@ -30,21 +30,6 @@
       <p>Some super important text here explaining what is going down.</p>
     </div>
   </div>
-  <div class="row" style="margin-bottom:20px;">
-    <div class="col-xs-12">
-      <a href="{{route('student-types.create')}}">Create a new student type</a>
-    </div>
-  </div>
-  <div class="row" style="margin-bottom:20px;">
-    <div class="col-xs-12">
-      <a href="{{route('attributes.create')}}">Create a new attribute</a>
-    </div>
-  </div>
-  <div class="row" style="margin-bottom:20px;">
-    <div class="col-xs-12">
-      <a href="{{route('attribute-types.create')}}">Create a new attribute type</a>
-    </div>
-  </div>
   <div class="row">
     <div class="col-xs-12">
       <table class="table table-striped" id="student-types-table">

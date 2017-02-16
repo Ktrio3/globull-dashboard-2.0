@@ -11,31 +11,33 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ url('dashboard') }}">Dashboard</a>
+      <a class="navbar-brand" href="{{ route('admin.index') }}">Dashboard</a>
     </div>
 
     <div class="collapse navbar-collapse" id="dashboard-navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="{{ route('proposal.start') }}"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Create a Proposal</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;My Proposals</a></li>
-        @if (View::exists('dashboard.navbar.role-' . Auth::user()->role_id))
-          @include ('dashboard.navbar.role-' . Auth::user()->role_id)
-        @endif
+        <li><a href="{{ route('admin.index') }}"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;Students</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;Statistics</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Admin <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{ route('student-types.index') }}">Student Types</a></li>
+            <li><a href="{{ route('attribute-types.index') }}">Attribute Types</a></li>
+            <li><a href="{{ route('attributes.index') }}">Attributes</a></li>
+          </ul>
+        </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-question-sign" aria-label="Help"></span> <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="{{ url('documents/usf-system-course-proposals-college-user-guide.pdf') }}" target="_blank">College Administrator User Guide</a></li>
-                <li><a href="{{ url('documents/usf-system-course-proposals-council-support-user-guide.pdf') }}" target="_blank">Council Support Staff User Guide</a></li>
-                <li><a href="{{ url('documents/usf-system-course-proposals-council-reviewer-user-guide.pdf') }}" target="_blank">Council Reviewer User Guide</a></li>
-            </ul>
-        </li>
+        @for($i = 5; $i >= Auth::user()->role_id; $i--)
+          @if (View::exists('admin.navbar.role-' . $i))
+            @include ('admin.navbar.role-' . $i)
+          @endif
+        @endfor
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ Auth::user()->netid }} <span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="{{ route('logout') }}">Logout</a></li>
+                <li><a href="{{ route('admin.index', ['logout' => 1]) }}">Logout</a></li>
             </ul>
         </li>
       </ul>

@@ -100,6 +100,7 @@
         @else
         <div>
         @endif
+        @yield('navbar')
         <!-- Display Errors -->
         @include('common.errors')
         @include('common.statuses')

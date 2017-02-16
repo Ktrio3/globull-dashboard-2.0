@@ -37,5 +37,9 @@ Route::group(['middleware' => 'auth.admin'], function() {
       Route::resource('attributes', 'AttributeController');
       Route::resource('attribute-types', 'AttributeTypeController');
 
+      Route::group(['middleware' => 'auth.master'], function() {
+        Route::resource('users', 'UserController');
+      });
+
   });
 });

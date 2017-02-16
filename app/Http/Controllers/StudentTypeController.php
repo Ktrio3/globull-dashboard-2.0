@@ -100,7 +100,7 @@ class StudentTypeController extends Controller
 
         $student_type->attributes()->sync($request['attributes']);
 
-        return redirect()->route('student-types.index')->with('status', 'Student Type updated!');;
+        return redirect()->route('student-types.index')->with('status', 'Student Type updated!');
     }
 
     /**
