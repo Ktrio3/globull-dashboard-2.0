@@ -33,21 +33,26 @@ class USFSSOMiddleware
         if ($request->has('logout')) {
             phpCAS::logout();
         } else if (Auth::check()) {
-            return $next($request);
+          //Redirect to student if this is a student logged in
+          if (!User::where('netid', Auth::user()->netid)->exists()) {
+           // not admin, must be student
+           return redirect()->route('student.index');
+          }
+
+          return $next($request);
         } else if (phpCAS::isAuthenticated()) {
-            //Check if the user is an admin
-            $user = User::where('netid', phpCAS::getUser())->first();
+          //Check if the user is an admin
+          $user = User::where('netid', phpCAS::getUser())->first();
 
-            //var_dump(phpCAS::getAttributes());die();
+          //var_dump(phpCAS::getAttributes());die();
 
-            if($user != null)
-            {
-              Auth::loginUsingId($user->id);
-              return $next($request);
-            }
+          if($user != null)
+          {
+            Auth::loginUsingId($user->id);
+            return $next($request);
+          }
 
-            return redirect('http://www.usf.edu/orientation/');
-
+          return redirect('http://www.usf.edu/orientation/');
         } else {
             phpCAS::forceAuthentication();
         }

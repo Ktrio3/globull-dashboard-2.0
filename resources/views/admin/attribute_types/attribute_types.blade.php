@@ -26,7 +26,11 @@
   @parent
   <div class="row">
     <div class="col-xs-12">
-      <p>Some super important text here explaining what is going down.</p>
+      <p>Below is a list of all the attribute types available. The attribute types organize the student's dashboard, splitting the
+        checklist items into different categories. Each student type has a precedence; the higher the precedence, the higher the type will
+        appear on the student's dashboard.
+      </p>
+      <p>If the user has the correct permissions, the attribute types can be edited by following the link on their name.</p>
     </div>
   </div>
   <div class="row">

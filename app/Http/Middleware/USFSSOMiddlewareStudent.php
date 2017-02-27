@@ -5,9 +5,10 @@ namespace App\Http\Middleware;
 use Closure;
 use phpCAS;
 use App\User;
+use App\Student;
 use Illuminate\Support\Facades\Auth;
 
-class USFSSOMiddleware
+class USFSSOMiddlewareStudent
 {
     /**
      * Handle an incoming request.
@@ -32,26 +33,46 @@ class USFSSOMiddleware
 
         if ($request->has('logout')) {
             phpCAS::logout();
-        } else if (Auth::check()) {
+        }
+        else if (Auth::check()) {
+          //If not a student must be an admin
+          //Note that this allows students hired to view old profile
+          if (!Student::where('netid', Auth::user()->netid)->exists()) {
+           // user found
+           return redirect()->route('admin.index');
+          }
+
+          //Student
+          return $next($request);
+        }
+        else if (phpCAS::isAuthenticated()) {
+          //Check if admin -- if so, redirect to admin side
+          $user = User::where('netid', phpCAS::getUser())->first();
+
+          //var_dump(phpCAS::getAttributes());die();
+
+          if($user != null)
+          {
+            Auth::loginUsingId($user->id);
+            return redirect()->route('admin.index');
+          }
+
+          //Check if this is an student in the database
+          // Note that this is currently using netid. Netid should be backup.
+          // Switch to UID as primary later.
+          $user = Student::where('netid', phpCAS::getUser())->first();
+          //var_dump(phpCAS::getAttributes());die();
+
+          if($user != null)
+          {
+            Auth::loginUsingId($user->id);
             return $next($request);
-        } else if (phpCAS::isAuthenticated()) {
-            //Check if this is a student in the database
-            // Note that this is currently using netid. This should be backup.
-            // Switch to UID as primary later.
-            $user = Student::where('netid', phpCAS::getUser())->first();
+          }
 
-            //var_dump(phpCAS::getAttributes());die();
-
-            if($user != null)
-            {
-              Auth::loginUsingId($user->id);
-              return $next($request);
-            }
-
-            //Prompt with message later
-            return redirect('http://www.usf.edu/orientation/');
-
-        } else {
+          //Not student or admin. Prompt with message later
+          return redirect('http://www.usf.edu/orientation/');
+        }
+        else {
             phpCAS::forceAuthentication();
         }
     }

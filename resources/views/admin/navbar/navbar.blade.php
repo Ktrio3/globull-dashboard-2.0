@@ -16,7 +16,7 @@
 
     <div class="collapse navbar-collapse" id="dashboard-navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="{{ route('admin.index') }}"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;Students</a></li>
+        <li><a href="{{ route('admin.students') }}"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;Students</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;Statistics</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Admin <span class="caret"></span></a>
@@ -24,6 +24,7 @@
             <li><a href="{{ route('student-types.index') }}">Student Types</a></li>
             <li><a href="{{ route('attribute-types.index') }}">Attribute Types</a></li>
             <li><a href="{{ route('attributes.index') }}">Attributes</a></li>
+            <li><a href="{{ route('admin.preview') }}">Preview</a></li>
           </ul>
         </li>
       </ul>

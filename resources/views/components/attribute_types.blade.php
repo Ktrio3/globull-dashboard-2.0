@@ -3,6 +3,9 @@
     <div class="col-xs-4">
       {{Form::bsText('name', "Attribute Type Name", null, ['required'])}}
     </div>
+    <div class="col-xs-1">
+      {{Form::bsNumber('precedence', null, null, [''])}}
+    </div>
   </div>
   <div class="row">
     <div class="col-xs-12">

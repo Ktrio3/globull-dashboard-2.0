@@ -15,4 +15,9 @@ class Status extends Model
     {
       return $this->belongsTo('App\Attribute');
     }
+
+    public function student()
+    {
+      return $this->belongsToMany('App\Student');
+    }
 }

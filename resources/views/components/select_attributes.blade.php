@@ -10,7 +10,7 @@
                 (See attribute-select.js)
                  */
             ?>
-      {{Form::bsSelect('attributes[]', "Attributes", $attributes, array_keys($attributes), "Select an existing attribute", ['required', 'id' => 'attributes', 'multiple'])}}
+      {{Form::bsSelect('attributes[]', "Attributes", $attributes, array_keys($attributes), "Select an existing attribute", [ 'id' => 'attributes', 'multiple'])}}
     </div>
   </div>
 </fieldset>

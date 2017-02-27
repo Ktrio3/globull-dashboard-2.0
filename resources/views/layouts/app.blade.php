@@ -31,7 +31,7 @@
     <!--Header-->
     <header role="banner">
         <a class="skipLink" href="#content">Skip to Main Content</a><div class="global u-wrapper u-clearfix">
-            <p class="global_logo"><a href="http://system.usf.edu/">University of South Florida System</a></p>
+            <p class="global_logo"><a href="http://usf.edu/">University of South Florida</a></p>
             <div class="global_tools u-clearfix">
 
                 <ul>
@@ -56,7 +56,7 @@
         <div class="banner">
             <div class="banner_interior u-wrapper">
                 <h1 class="banner_title"><a href="{{ url('/') }}">Office of Orientation</a></h1>
-                <p class="banner_subtitle"><a href="http://systemacademics.usf.edu">Undergraduate Studies</a></p>
+                <p class="banner_subtitle"><a href="http://usf.edu/undergrad">Undergraduate Studies</a></p>
             </div>
         </div>
         <nav class="mainNav" role="navigation">
@@ -116,7 +116,7 @@
 
 
             <div class="col-lg-6 col-md-5 col-sm-5">
-                <a href="http://system.usf.edu"><img class="footer-usf-logo" src="//cdn.usf.edu/themes/usf/applications/1.0/images/footer/footer-logo-system.png" alt="University of South Florida System"></a><p class="footer-copy">
+                <a href="http://usf.edu"><img class="footer-usf-logo" src="//cdn.usf.edu/themes/usf/applications/1.0/images/footer/footer-logo.png" alt="University of South Florida"></a><p class="footer-copy">
                     Copyright &copy; {{ date('Y') }}, University of South Florida. All rights reserved.<br>4202 E. Fowler Avenue,
                     Tampa, FL 33620, USA &bull; 813-974-2011<br>This website is maintained by <a href="mailto:myorientation@usf.edu">Orientation</a>.
                     <br>

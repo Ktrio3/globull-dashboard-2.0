@@ -23,7 +23,7 @@ class AttributeController extends Controller
          ]]);
      }
 
-     
+
     public function index()
     {
         //
@@ -51,11 +51,24 @@ class AttributeController extends Controller
     public function store(Request $request)
     {
         //
-        $attribute = Attribute::create($request->only(['name', 'code', 'description']));
+        $attribute = Attribute::create($request->only(['name', 'code', 'description', 'is_info']));
+
+        $is_info = $request->get('is_info');
+
+        //Create the info status
+        if($is_info)
+        {
+          $newStatus = new Status();
+          $newStatus->name = $attribute->name;
+          $newStatus->code = $attribute->code . '-fillable';
+          $newStatus->complete = 1;
+          $newStatus->description = $attribute->description;
+          $attribute->statuses()->save($newStatus);
+        }
 
         $statuses = $request->only('statuses');
 
-        if(isset($statuses['statuses']))
+        if(!$is_info && !empty($statuses['statuses']))
         {
           $statuses = $statuses['statuses'];
 
@@ -122,12 +135,29 @@ class AttributeController extends Controller
     public function update(Request $request, Attribute $attribute)
     {
         //
-        $attribute->fill($request->only(['name', 'code', 'description']));
+        $attribute->fill($request->only(['name', 'code', 'description', 'is_info']));
         $attribute->save();
+
+        $is_info = $request->get('is_info');
+
+        //Create the info status, if not already created
+        if($is_info && !Status::where('code', $attribute->code . '-fillable')->where('attribute_id', $attribute->id)->exists())
+        {
+          $newStatus = new Status();
+          $newStatus->name = $attribute->name;
+          $newStatus->code = $attribute->code . '-fillable';
+          $newStatus->description = $attribute->description;
+          $newStatus->complete = 1;
+          $attribute->statuses()->save($newStatus);
+        }
+        else if(!$is_info && Status::where('code', $attribute->code . '-fillable')->where('attribute_id', $attribute->id)->exists())
+        {
+          Status::where('code', $attribute->code . '-fillable')->where('attribute_id', $attribute->id)->delete();
+        }
 
         $statuses = $request->only('statuses');
 
-        if(isset($statuses['statuses']))
+        if(!$is_info && !empty($statuses['statuses']))
         {
           $statuses = $statuses['statuses'];
           $status_ids = [];
@@ -176,7 +206,6 @@ class AttributeController extends Controller
           {
               Status::whereNotIn('id', $status_ids)->where('attribute_id', $attribute->id)->delete();
           }
-
         }
 
         //Save type

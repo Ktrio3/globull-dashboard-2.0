@@ -27,7 +27,10 @@
   @parent
   <div class="row">
     <div class="col-xs-12">
-      <p>Some super important text here explaining what is going down.</p>
+      <p>Below is a list of all the student types availabe. Each student can belong to one, or more, of these. Note that
+      all students belong to the special student type "All". This special student type is designed to hold all the attributes all students
+      have, such as a first name, email, etc.</p>
+      <p>If the user has the correct permissions, the student type can be edited by following the link on their name.</p>
     </div>
   </div>
   <div class="row">

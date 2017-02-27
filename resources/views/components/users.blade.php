@@ -1,10 +1,10 @@
 <fieldset>
   <div class="row">
     <div class="col-xs-4">
-      {{Form::bsText('first_name', "First Name", null, ['required'])}}
+      {{Form::bsText('first_name', "First Name", null, [''])}}
     </div>
     <div class="col-xs-4">
-      {{Form::bsText('last_name', "Last Name", null, ['required'])}}
+      {{Form::bsText('last_name', "Last Name", null, [''])}}
     </div>
     <div class="col-xs-2">
       {{Form::bsText('netid', "NetID", null, ['required'])}}
@@ -12,7 +12,7 @@
   </div>
   <div class="row">
     <div class="col-xs-4">
-      {{Form::bsText('email', "Email", null, ['required'])}}
+      {{Form::bsText('email', "Email", null, [''])}}
     </div>
     <div class="col-xs-2">
       <?php if($user)

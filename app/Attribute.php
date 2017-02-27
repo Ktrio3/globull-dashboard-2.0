@@ -9,7 +9,7 @@ class Attribute extends Model
     //
     public $timestamps = false;
     protected $guarded = ['id', 'attribute_type_id'];
-    protected $fillable = ['name', 'code', 'description'];
+    protected $fillable = ['name', 'code', 'description', 'is_info'];
 
     public function student_types()
     {

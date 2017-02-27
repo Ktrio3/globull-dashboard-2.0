@@ -15,4 +15,9 @@ class StudentType extends Model
     {
       return $this->belongsToMany('App\Attribute');
     }
+
+    public function student()
+    {
+      return $this->belongsToMany('App\Student');
+    }
 }

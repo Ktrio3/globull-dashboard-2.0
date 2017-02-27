@@ -55,7 +55,8 @@ class StudentTypeController extends Controller
         //Only available to modders
         $student_type = StudentType::create($request->only(['name', 'code', 'description']));
 
-        $student_type->attributes()->sync($request['attributes']);
+        if(!empty($request['attributes']))
+          $student_type->attributes()->sync($request['attributes']);
 
         return redirect()->route('student-types.index')->with('status', 'Student Type created!');
     }

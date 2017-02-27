@@ -21,7 +21,7 @@ class AttributeTypeController extends Controller
              'barAction',
          ]]);
      }
-     
+
     public function index()
     {
         //
@@ -49,7 +49,7 @@ class AttributeTypeController extends Controller
     public function store(Request $request)
     {
       //
-      $attributeType = AttributeType::create($request->only(['name', 'description']));
+      $attributeType = AttributeType::create($request->only(['name', 'description', 'precedence']));
 
       return redirect()->route('attribute-types.index')->with('status', 'Attribute Type created!');
     }
@@ -88,7 +88,7 @@ class AttributeTypeController extends Controller
     public function update(Request $request, $id)
     {
       //
-      $attribute = AttributeType::findOrFail($id)->fill($request->only(['name', 'description']));
+      $attribute = AttributeType::findOrFail($id)->fill($request->only(['name', 'description', 'precedence']));
       $attribute->save();
 
       return redirect()->route('attribute-types.index')->with('status', 'Attribute Type updated!');

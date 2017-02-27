@@ -18,12 +18,13 @@
 @parent
   <script src="{{url('/Datatables/datatables.min.js')}}"></script>
   <script>
-    var statuses = <?php echo json_encode($attribute->statuses) ?>;
+    var statuses = <?php echo json_encode($attribute->statuses()->whereHas('attribute', function($q){$q->where('is_info', '<>', 1);})) ?>;
     var attributeTypes = <?php echo json_encode(App\AttributeType::all()) ?>;
   </script>
   <script src="{{url('/js/select2.min.js')}}"></script>
   <script src="{{url('/js/attribute-type-select.js')}}"></script>
   <script src="{{url('/js/modify-statuses.js')}}"></script>
+  <script src="{{url('/js/attributes.js')}}"></script>
 @endsection
 
 @section('content')
