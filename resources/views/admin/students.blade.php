@@ -53,7 +53,7 @@
         shift-clicking will allow ordering by multiple columns.
       </p>
       <p>If the user has the correct permissions, an individual student record can be edited.</p>
-      <a href="{{route("admin.index")}}">Click here to export student information.</a><br/><br/>
+      <a href="{{route("admin.export")}}">Click here to export student information.</a><br/><br/>
     </div>
   </div>
   <div class="row">

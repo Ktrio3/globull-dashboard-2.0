@@ -35,14 +35,24 @@ Route::group(['middleware' => 'auth.admin'], function() {
 
       Route::get('/students', function(){return view('admin.students');})->name('admin.students');
 
+      Route::get('/students/export', 'UploadController@export')->name('admin.export');
+
+      Route::post('/students/export', 'UploadController@export')->name('admin.export');
+
       Route::get('/students/{id}', function($id){
-        // /var_dump($id);die();
+
         $student = App\Student::findOrFail($id);
 
-        $status = "Viewing student: " . $student->UID;
+        $status = session()->get('status') . "Viewing student: " . $student->UID;
         session(['status' => $status]);
-        return view('admin.student-view', ['student' => $student]);
+
+        if(Auth::user()->role->id < 5) //User is allowed to edit students
+          return view('admin.student-edit', ['student' => $student]);
+        else
+          return view('admin.student-view', ['student' => $student]);
       })->name('admin.view-students');
+
+      Route::post('/update-student/{id}', 'UploadController@update_student')->name('student.update');
 
       Route::get('/preview', 'UploadController@preview')->name('admin.preview');
 

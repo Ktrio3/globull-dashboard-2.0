@@ -22,7 +22,7 @@
       <p>A temporary home screen for uploads
       </p>
       {{Form::open(array('route' => array('admin.upload'), 'files' => true))}}
-        {{Form::file('sheet')}}
+        {{Form::file('sheet', ['required'])}}
         {{Form::submit('Save User', ['class' => 'btn btn-primary', 'style' => 'margin-bottom:20px;'])}}
       {{Form::close()}}
 

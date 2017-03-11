@@ -45,5 +45,5 @@
 @endsection
 
 @section('content')
-  @include('components.student')
+  @include('components.student-edit')
 @endsection
