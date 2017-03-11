@@ -169,7 +169,6 @@ class UploadController extends Controller
               $errors = ['Could not locate student. NetID does not match any on record. Row: ' . ($row + 1)];
 
               return view('admin.upload', ['errors' => $errors]);
-              dd("didn't return");
             }
           }
           else
@@ -181,6 +180,8 @@ class UploadController extends Controller
           //Loop through each column, and set student statuses
           foreach($result as $key => $value)
           {
+            print_r($key . '=>' . $value . '<br/>');
+
             //Skip special headers for now
             if($key == 'uid')
             {
@@ -316,12 +317,11 @@ class UploadController extends Controller
 
             //Add the new status
             $student->statuses()->sync($sync, false);
-            $student->save();
-
           }
+          $student->save(); // Save all changes
         }
       }
 
-      return view('admin.admin');
+      return view('admin.admin', ['success' => 'Upload successfull!']);
     }
 }

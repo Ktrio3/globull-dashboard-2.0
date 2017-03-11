@@ -51,7 +51,7 @@
             @foreach($attributes as $attribute)
               <?php $status = $student->statuses()->where('attribute_id', '=', $attribute->id)->first();
                 if($status == null)
-                  $status = (object) ["complete" => 0, "name" => 'Not yet entered', 'pivot' => (object) ['message' => '']];
+                  $status = (object) ["complete" => 0, "name" => 'Not yet entered', 'pivot' => (object) ['message' => '', 'value' => '']];
               ?>
               <tr style="height:50px;" @if($status->complete == 1) class="complete" @endif>
                 <td style="text-align:center;width:7%;">
