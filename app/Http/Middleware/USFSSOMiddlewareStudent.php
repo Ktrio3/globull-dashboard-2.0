@@ -70,7 +70,7 @@ class USFSSOMiddlewareStudent
           }
 
           //Not student or admin. Prompt with message later
-          return redirect('http://www.usf.edu/orientation/');
+          return redirect()->route('user_not_found');
         }
         else {
             phpCAS::forceAuthentication();

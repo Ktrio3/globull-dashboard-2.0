@@ -44,7 +44,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+      if ($e instanceof TokenMismatchException){
+          //redirect to a form. Here is an example of how I handle mine
+          return redirect($request->fullUrl())->with('error', "This form has been left open for a significant amount of time. Please try again.");
+      }
+
+      return parent::render($request, $exception);
     }
 
     /**
