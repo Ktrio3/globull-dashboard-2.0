@@ -38,7 +38,7 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ Auth::user()->netid }} <span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="{{ route('admin.index', ['logout' => 1]) }}">Logout</a></li>
+                <li><a href="{{ route('logout', ['logout' => 1]) }}">Logout</a></li>
             </ul>
         </li>
       </ul>

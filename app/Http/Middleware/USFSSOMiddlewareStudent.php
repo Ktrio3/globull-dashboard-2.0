@@ -32,7 +32,7 @@ class USFSSOMiddlewareStudent
           phpCAS::setNoCasServerValidation(); //turn off CAS server validation
 
         if ($request->has('logout')) {
-            phpCAS::logout();
+            phpCAS::logoutWithRedirectService('http://www.usf.edu/orientation/');
         }
         else if (Auth::check()) {
           //If not a student must be an admin

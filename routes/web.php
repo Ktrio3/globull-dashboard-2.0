@@ -14,7 +14,6 @@
 //===================================================================
 // Authenticated Site
 //===================================================================\
-Route::get('/logout', function () {})->name('logout'); //logout
 Route::get('/user-not-found', function () {
   return view('student.student_not_found', ['errors' => ['No record currently entered for this NetID. If you believe this to be an error, please contact the office of orientation.']]);
 })->name('user_not_found'); //logout
@@ -22,7 +21,6 @@ Route::get('/user-not-found', function () {
 Route::group(['middleware' => 'auth.student'], function() {
   //Home route. If student, load their view. If admin, redirect to admin.
   Route::get('/', function () {
-
     $student = App\Student::where('netid', Auth::user()->netid)->first();
 
     //Else if student
@@ -31,6 +29,8 @@ Route::group(['middleware' => 'auth.student'], function() {
 });
 
 Route::group(['middleware' => 'auth.admin'], function() {
+  Route::get('/logout', function () {})->name('logout'); //logout
+
   Route::group(['prefix' => '/admin', ], function() {
       Route::get('/', function(){
         return view('admin.admin');
