@@ -28,7 +28,7 @@ class Student extends Authenticatable
 
     public function attribute_types()
     {
-      $student_types = $this->student_types; //Get the student's types
+      $student_types = $this->student_types()->get(); //Get the student's types
 
       $attribute_types = [];
 

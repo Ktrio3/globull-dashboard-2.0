@@ -21,7 +21,12 @@ Route::get('/user-not-found', function () {
 Route::group(['middleware' => 'auth.student'], function() {
   //Home route. If student, load their view. If admin, redirect to admin.
   Route::get('/', function () {
-    $student = App\Student::where('netid', Auth::user()->netid)->first();
+    $student = App\Student::where('uid', Auth::user()->UID)->first();
+
+    if($student == null)
+    {
+      $student = App\Student::where('netid', Auth::user()->netid)->first();
+    }
 
     //Else if student
     return view('student.student', ['student' => $student]);

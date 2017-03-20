@@ -42,8 +42,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        var_dump($request->all());
 
         $user = User::create($request->only(['email', 'first_name', 'last_name', 'netid']));
 

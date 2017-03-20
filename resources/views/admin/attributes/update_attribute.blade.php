@@ -18,7 +18,7 @@
 @parent
   <script src="{{url('/Datatables/datatables.min.js')}}"></script>
   <script>
-    var statuses = <?php echo json_encode($attribute->statuses()->whereHas('attribute', function($q){$q->where('is_info', '<>', 1);})) ?>;
+    var statuses = <?php echo json_encode($attribute->statuses()->get()) ?>;
     var attributeTypes = <?php echo json_encode(App\AttributeType::all()) ?>;
   </script>
   <script src="{{url('/js/select2.min.js')}}"></script>

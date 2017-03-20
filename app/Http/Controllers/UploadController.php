@@ -133,6 +133,9 @@ class UploadController extends Controller
     //This function could use some seperating into functions, so we can use them above
     public function upload(Request $request)
     {
+      // May need longer than 30 seconds for large excel files
+      ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+
       if($request->file('sheet')->isValid())
       {
         Storage::put('file.temp', file_get_contents($_FILES['sheet']['tmp_name']));
@@ -140,11 +143,20 @@ class UploadController extends Controller
         $reader = Excel::load('storage/app/file.temp', function($reader) {})->get();
         // ->all() is a wrapper for ->get() and will work the same
         $results = $reader->all();
+        $row = 0;
 
         //Loop through each row
-        foreach($results as $row => $result)
+        foreach($results as $result)
         {
+          $row++;
+
           //Find the student associated
+          if(!isset($result->uid) && !isset($result->netid))
+          {
+            //NOTE: Need to throw an error here
+            $errors = ['Could not find uid or netid for row:' . $row];
+            return view('admin.upload', ['errors' => $errors]);
+          }
           $uid = $result->uid;
 
           if($uid == null)
@@ -155,7 +167,7 @@ class UploadController extends Controller
             if($netid == null)
             {
               //NOTE: Need to throw an error here
-              $errors = ['Could not locate student. NetID and UID were not provided. Row: ' . ($row + 1)];
+              $errors = ['Could not locate student. NetID and UID were not provided. Row: ' . ($row)];
 
               return view('admin.upload', ['errors' => $errors]);
             }
@@ -166,13 +178,21 @@ class UploadController extends Controller
             if($student == null)
             {
               //NOTE: Need to throw an error here
-              $errors = ['Could not locate student. NetID does not match any on record. Row: ' . ($row + 1)];
+              $errors = ['Could not locate student. NetID does not match any on record. Row: ' . ($row)];
 
               return view('admin.upload', ['errors' => $errors]);
             }
           }
           else
           {
+            if(!preg_match('/[U]{1}\d{8}/', $uid))
+            {
+              //NOTE: Need to throw an error here
+              $errors = ['Incorrectly formatted UID '.$uid.'. Row: ' . ($row)];
+
+              return view('admin.upload', ['errors' => $errors]);
+            }
+
             //Process using UID
             $student = Student::where('UID', $uid)->firstOrCreate(['UID' => $uid]);
           }
@@ -180,7 +200,6 @@ class UploadController extends Controller
           //Loop through each column, and set student statuses
           foreach($result as $key => $value)
           {
-            print_r($key . '=>' . $value . '<br/>');
 
             //Skip special headers for now
             if($key == 'uid')
@@ -220,7 +239,7 @@ class UploadController extends Controller
                   if($newType == null)
                   {
                     //NOTE: Need to throw an error here
-                    $errors = ['Could not locate student type with code:'. $type .' . Row: ' . ($row + 1)];
+                    $errors = ['Could not locate student type with code:'. $type .' . Row: ' . ($row)];
 
                     return view('admin.upload', ['errors' => $errors]);
                   }
@@ -262,6 +281,8 @@ class UploadController extends Controller
               return view('admin.upload', ['errors' => $errors]);
             }
 
+            if($value == null || $value == '') continue; //Skip if blank
+
             //If this is a fillable status, fill it!
             if($attribute->is_info == 1)
             {
@@ -273,7 +294,7 @@ class UploadController extends Controller
             if($status == null)
             {
               //NOTE: Error. Bad attribute found.
-              $errors = ['Could not find a status with the code ' . $value . ' for attribute ' . $attribute->name . 'at row:  ' . ($row + 1)];
+              $errors = ['Could not find a status with the code ' . $value . ' for attribute ' . $attribute->name . ' at row:  ' . ($row)];
 
               return view('admin.upload', ['errors' => $errors]);
             }

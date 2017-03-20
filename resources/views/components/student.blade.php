@@ -14,6 +14,17 @@
       <p>If you have any other questions or are having trouble navigating your dashboard, please email us at <a href="mailto:globullbeginnings@usf.edu">globullbeginnings@usf.edu</a></p>
     </div>
   </div>
+  <div class="row border-below">
+    <div class="col-xs-12">
+      <p> Showing dashboard for:</p>
+      <ul>
+        <li>UID: {{$student->UID}}</li>
+        @if($student->netid != null)
+          <li>NetID: {{$student->netid}}</li>
+        @endif
+      </ul>
+    </div>
+  </div>
   @foreach($student->attribute_types() as $attribute_type)
     <div class="row border-below">
       <div class="col-xs-12" style="margin-bottom:1.5em;">

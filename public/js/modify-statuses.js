@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	console.log(statuses)
+	
     var table = $('#statuses-table').DataTable({
         "data": statuses,
         "bPaginate": false,

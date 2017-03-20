@@ -37,6 +37,10 @@ class USFSSOMiddlewareStudent
         else if (Auth::check()) {
           //If not a student must be an admin
           //Note that this allows students hired to view old profile
+          //$uid = phpCas::getAttribute('USFeduUnumber');
+
+          //$user = Student::where('uid', $uid)->exists();
+          
           if (!Student::where('netid', Auth::user()->netid)->exists()) {
            // user found
            return redirect()->route('admin.index');
@@ -59,13 +63,20 @@ class USFSSOMiddlewareStudent
 
           //Check if this is an student in the database
           // Note that this is currently using netid. Netid should be backup.
-          // Switch to UID as primary later.
-          $user = Student::where('netid', phpCAS::getUser())->first();
-          //var_dump(phpCAS::getAttributes());die();
+          
+          $uid = phpCas::getAttribute('USFeduUnumber');
+
+          $user = Student::where('uid', $uid)->first();
+
+          if($user == null)
+          {
+            // Switch to UID as primary later.
+            $user = Student::where('netid', phpCAS::getUser())->first();
+          }
 
           if($user != null)
           {
-            Auth::loginUsingId($user->id);
+            Auth::login($user);
             return $next($request);
           }
 
