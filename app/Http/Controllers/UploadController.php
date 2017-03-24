@@ -62,17 +62,17 @@ class UploadController extends Controller
 
       foreach($students as $student)
       {
-        $keys = Attribute::pluck('code')->toArray();
+        $keys = Attribute::orderBy('code')->pluck('code')->toArray();
         $value = [];
+
+        $value['UID'] = $student->UID;
+        $value['netid'] = $student->netid;
+        $value['admit_semester'] = $student->admit_semester;
 
         foreach($keys as $key)
         {
           $value[$key] = ''; //The export library is dumb; if keys are present, still places by order...
         }
-
-        $value['UID'] = $student->UID;
-        $value['netid'] = $student->netid;
-        $value['admit_semester'] = $student->admit_semester;
 
         foreach($student->statuses as $status)
         {
