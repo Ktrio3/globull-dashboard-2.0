@@ -46,6 +46,62 @@ class UploadController extends Controller
       return view('admin.student-export');
     }
 
+    public function doExport(Request $request)
+    {
+      if($request->get('filter') == 0)
+      {
+        $data = $this->getAll();
+      }
+    }
+
+    private function getAll()
+    {
+      $students = Student::with(['statuses.attribute', 'student_types'])->get();
+
+      $final = [];
+
+      foreach($students as $student)
+      {
+        $value = [];
+
+        $value['UID'] = $student->UID;
+        $value['netid'] = $student->netid;
+        $value['admit_semester'] = $student->admit_semester;
+
+        foreach($student->statuses as $status)
+        {
+          if($status->attribute->is_info)
+            $value[$status->attribute->code] = $status->pivot->value;
+          else
+            $value[$status->attribute->code] = $status->code;
+        }
+
+        $final[] = $value;
+      }
+
+      $this->exportStudents($final);
+    }
+
+    private function exportStudents($array)
+    {
+      Excel::create('student_export', function($excel) use($array) {
+        // Set the title
+        //$excel->setTitle('Our new awesome title');
+        // Chain the setters
+        //$excel->setCreator('Maatwebsite')
+        //      ->setCompany('Maatwebsite');
+
+        // Call them separately
+        //$excel->setDescription('A demonstration to change the file properties');
+
+        // Our first sheet
+        $excel->sheet('students', function($sheet) use($array) {
+          $sheet->fromArray($array);
+        });
+
+      })->export('xlsx');
+    }
+
     /**
      * Display a listing of the resource.
      *

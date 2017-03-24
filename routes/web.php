@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth.admin'], function() {
 
       Route::get('/students/export', 'UploadController@export')->name('admin.export');
 
-      Route::post('/students/export', 'UploadController@export')->name('admin.export');
+      Route::post('/students/export', 'UploadController@doExport')->name('admin.export');
 
       Route::get('/students/{id}', function($id){
 

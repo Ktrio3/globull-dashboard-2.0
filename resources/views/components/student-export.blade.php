@@ -18,12 +18,23 @@
         {{Form::bsSelect('studentTypes[]', 'Student Types', App\StudentType::all()->pluck('name', 'id')->toArray(), [], 'Select some types', ['class' => 'attributes', 'multiple'])}}
       </div>
     </div>
+    <?php $count = 0;?>
     @foreach(App\AttributeType::all() as $type)
-      <div class="row">
-        <div class="col-xs-6">
-          {{Form::bsSelect('attributes['.$type->id.'][]', $type->name . ' Attributes', $type->attributes->pluck('name', 'id')->toArray(), [], 'Select some attributes', ['class' => ' attributes', 'multiple'])}}
-        </div>
+      @if($count % 2 == 0)
+        <div class="row">
+      @endif
+      <div class="col-xs-6">
+        {{Form::bsSelect('attributes['.$type->id.'][]', $type->name . ' Attributes', $type->attributes->pluck('name', 'id')->toArray(), [], 'Select some attributes', ['class' => ' attributes', 'multiple'])}}
       </div>
+      @if($count % 2 == 1)
+        </div>
+      @endif
+      <?php $count++; ?>
     @endforeach
+    <div class="row">
+      <div class="col-xs-12">
+        {{Form::submit('Export', ['class' => 'btn btn-primary', 'style' => 'margin-bottom:20px;'])}}
+      </div>
+    </div>
   {{Form::close()}}
 @endsection
