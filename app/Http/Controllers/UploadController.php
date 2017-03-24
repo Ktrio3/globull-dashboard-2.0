@@ -48,6 +48,9 @@ class UploadController extends Controller
 
     public function doExport(Request $request)
     {
+      // May need longer than 30 seconds for large excel files
+      ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+
       if($request->get('filter') == 0)
       {
         $data = $this->getAll();
