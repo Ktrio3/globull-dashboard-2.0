@@ -62,7 +62,13 @@ class UploadController extends Controller
 
       foreach($students as $student)
       {
+        $keys = Attribute::pluck('code')->toArray();
         $value = [];
+
+        foreach($keys as $key)
+        {
+          $value[$key] = ''; //The export library is dumb; if keys are present, still places by order...
+        }
 
         $value['UID'] = $student->UID;
         $value['netid'] = $student->netid;
