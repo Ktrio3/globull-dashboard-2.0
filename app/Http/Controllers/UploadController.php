@@ -55,45 +55,47 @@ class UploadController extends Controller
       {
         $data = $this->getAll();
       }
+
+      return view('admin.student-export');
     }
 
     private function getAll()
     {
-      $students = Student::with(['statuses.attribute', 'student_types'])->get();
-
       $final = [];
+      $keys = Attribute::orderBy('code')->pluck('code')->toArray();
 
-      foreach($students as $student)
-      {
-        $keys = Attribute::orderBy('code')->pluck('code')->toArray();
-        $value = [];
+      Student::with(['statuses.attribute', 'student_types'])->chunk(100, function ($students) use($keys, $final) {
+          foreach ($students as $student) {
+              //
+            $value = [];
 
-        $value['UID'] = $student->UID;
-        $value['netid'] = $student->netid;
-        $value['admit_semester'] = $student->admit_semester;
+            $value['UID'] = $student->UID;
+            $value['netid'] = $student->netid;
+            $value['admit_semester'] = $student->admit_semester;
 
-        foreach($keys as $key)
-        {
-          $value[$key] = ''; //The export library is dumb; if keys are present, still places by order...
-        }
+            foreach($keys as $key)
+            {
+              $value[$key] = ''; //The export library is dumb; if keys are present, still places by order...
+            }
 
-        foreach($student->statuses as $status)
-        {
-          if($status->attribute->is_info)
-            $value[$status->attribute->code] = $status->pivot->value;
-          else
-            $value[$status->attribute->code] = $status->code;
-        }
+            foreach($student->statuses as $status)
+            {
+              if($status->attribute->is_info)
+                $value[$status->attribute->code] = $status->pivot->value;
+              else
+                $value[$status->attribute->code] = $status->code;
+            }
 
-        $final[] = $value;
-      }
+            $final[] = $value;
+          }
+      });
 
       $this->exportStudents($final);
     }
 
     private function exportStudents($array)
     {
-      Excel::create('student_export', function($excel) use($array) {
+      Excel::create('export_student', function($excel) use($array) {
         // Set the title
         //$excel->setTitle('Our new awesome title');
         // Chain the setters
