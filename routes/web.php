@@ -45,6 +45,20 @@ Route::group(['middleware' => 'auth.admin'], function() {
 
       Route::get('/students/export', 'UploadController@export')->name('admin.export');
 
+      Route::get('/databases', 'DatabaseController@index')->name('database.index');
+
+      Route::get('/databases/create', 'DatabaseController@add')->name('database.create');
+
+      Route::get('/databases/edit/{id}', 'DatabaseController@edit')->name('database.edit');
+
+      Route::get('/databases/edit-attributes/{id}', 'DatabaseController@edit_attributes')->name('database.edit_attributes');
+
+      Route::post('/databases/store', 'DatabaseController@store')->name('database.store');
+
+      Route::post('/databases/update/{id}', 'DatabaseController@update')->name('database.update');
+
+      Route::post('/databases/update-attributes/{id}', 'DatabaseController@update_attributes')->name('database.update_attributes');
+
       Route::post('/students/export', 'UploadController@doExport')->name('admin.export');
 
       Route::get('/students/{id}', function($id){

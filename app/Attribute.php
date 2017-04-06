@@ -25,4 +25,9 @@ class Attribute extends Model
     {
       return $this->belongsTo('App\AttributeType');
     }
+
+    public function databases()
+    {
+      return $this->belongsToMany('App\Database');
+    }
 }
