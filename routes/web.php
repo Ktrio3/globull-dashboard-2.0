@@ -33,6 +33,13 @@ Route::group(['middleware' => 'auth.student'], function() {
   })->name('student.index');
 });
 
+use App\Database;
+
+Route::get('/test', function (){
+  $database = Database::findOrFail(1);
+  $database->test();
+});
+
 Route::group(['middleware' => 'auth.admin'], function() {
   Route::get('/logout', function () {})->name('logout'); //logout
 
