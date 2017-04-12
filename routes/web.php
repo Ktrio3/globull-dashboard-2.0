@@ -11,6 +11,8 @@
 |
 */
 
+use App\Database;
+
 //===================================================================
 // Authenticated Site
 //===================================================================\
@@ -33,13 +35,6 @@ Route::group(['middleware' => 'auth.student'], function() {
   })->name('student.index');
 });
 
-use App\Database;
-
-Route::get('/test', function (){
-  $database = Database::findOrFail(1);
-  $database->test();
-});
-
 Route::group(['middleware' => 'auth.admin'], function() {
   Route::get('/logout', function () {})->name('logout'); //logout
 
@@ -56,15 +51,20 @@ Route::group(['middleware' => 'auth.admin'], function() {
 
       Route::get('/databases/create', 'DatabaseController@add')->name('database.create');
 
-      Route::get('/databases/edit/{id}', 'DatabaseController@edit')->name('database.edit');
+      Route::get('/databases/{id}/edit', 'DatabaseController@edit')->name('database.edit');
 
-      Route::get('/databases/edit-attributes/{id}', 'DatabaseController@edit_attributes')->name('database.edit_attributes');
+      Route::get('/databases/{id}/edit-attributes', 'DatabaseController@edit_attributes')->name('database.edit_attributes');
 
       Route::post('/databases/store', 'DatabaseController@store')->name('database.store');
 
-      Route::post('/databases/update/{id}', 'DatabaseController@update')->name('database.update');
+      Route::get('databases/{id}/test', function ($id){
+        $database = Database::findOrFail($id);
+        $database->test();
+      })->name("database.test");
 
-      Route::post('/databases/update-attributes/{id}', 'DatabaseController@update_attributes')->name('database.update_attributes');
+      Route::post('/databases/{id}/update', 'DatabaseController@update')->name('database.update');
+
+      Route::post('/databases/{id}/update-attributes', 'DatabaseController@update_attributes')->name('database.update_attributes');
 
       Route::post('/students/export', 'UploadController@doExport')->name('admin.export');
 

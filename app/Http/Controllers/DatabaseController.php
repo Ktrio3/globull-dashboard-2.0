@@ -27,7 +27,7 @@ class DatabaseController extends Controller
     public function index()
     {
         //
-        //return view('admin.attribute_types.attribute_types');
+        return view('admin.database.databases');
     }
 
     /**

@@ -72,7 +72,7 @@
   {{Form::open(array('route' => array('database.update_attributes', $database->id), 'method' => 'POST'))}}
     @include('components.map_database_attributes')
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-xs-3">
         {{Form::submit('Save Attributes', ['class' => 'btn btn-primary', 'style' => 'margin-bottom:20px;'])}}
       </div>
     </div>

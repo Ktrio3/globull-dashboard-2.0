@@ -28,6 +28,15 @@
   {{Form::model($database, array('route' => array('database.update', $database->id)))}}
     @include('components.databases')
   {{Form::close()}}
-  <h3> Mapping attributes to columns</h3>
-  <a href="{{route('database.edit_attributes', ['id' => 1])}}">Click here to add attributes for this database connection</a>
-@endsection
+  <div class="row">
+    <div class="col-xs-3" style="padding-bottom:20px;">
+      <a href="{{route('database.test', $database->id)}}"> Test this database connection! </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3> Mapping attributes to columns</h3>
+      <a href="{{route('database.edit_attributes', ['id' => 1])}}">Click here to add attributes for this database connection</a>
+    </div>
+  </div>
+  @endsection

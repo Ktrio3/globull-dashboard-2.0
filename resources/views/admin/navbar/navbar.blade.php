@@ -24,6 +24,7 @@
             <li><a href="{{ route('student-types.index') }}">Student Types</a></li>
             <li><a href="{{ route('attribute-types.index') }}">Attribute Types</a></li>
             <li><a href="{{ route('attributes.index') }}">Attributes</a></li>
+            <li><a href="{{ route('database.index') }}">Databases</a></li>
             <li><a href="{{ route('admin.preview') }}">Preview</a></li>
           </ul>
         </li>
