@@ -29,8 +29,6 @@ $(document).ready(function(){
         "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
           // Create inputs
 
-          console.log(typeof(aData.pivot))
-
           if(!aData.hasOwnProperty('pivot'))
           {
             column = ''
@@ -41,6 +39,14 @@ $(document).ready(function(){
             column = aData.pivot.column
             attribute_id = aData.pivot.attribute_id
           }
+
+          current_value = $('td:eq(0)', nRow).find("select").val()
+          if(typeof current_value != undefined)
+            attribute_id = current_value
+
+          current_value = $('td:eq(2)', nRow).find("input").val()
+          if(typeof current_value !== "undefined")
+            column = current_value
 
           $('td:eq(0)', nRow).html( createSelect("attribute", nRow._DT_RowIndex, attribute_id) );
           $('td:eq(2)', nRow).html( tableInput("column", nRow._DT_RowIndex, column) );
@@ -70,15 +76,15 @@ $(document).ready(function(){
 function createSelect(name, rowNum, value, hiddenID = false, id = -1)
 {
   select = '<select class="form-control" required="required" name="attributes['
-  select += rowNum + '][' + name + ']" value="' + value + '" id="code">'
+  select += rowNum + '][' + name + ']" value="' + value + '">'
   select += "<option value=''></option>"
 
   attributes.forEach(function(element)
   {
     if(value == element.id)
-      select += "<option value='" + element.id + "' selected>" + element.name + "</option>"
+      select += "<option value='" + element.id + "' selected>" + element.name + " (" + element.code + ")" + "</option>"
     else
-      select += "<option value='" + element.id + "'>" + element.name + "</option>"
+      select += "<option value='" + element.id + "'>" + element.name + " (" + element.code + ")" + "</option>"
   })
 
   select += "</select>"
@@ -86,20 +92,21 @@ function createSelect(name, rowNum, value, hiddenID = false, id = -1)
   if(hiddenID)
   {
     r +='<input class="form-control" required="required" name="attributes['
-    r +=  rowNum + '][id]" type="hidden" value="' + id + '" id="code">'
+    r +=  rowNum + '][id]" type="hidden" value="' + id + '">'
   }
 
   return select
 }
 
+
 function tableInput ( name, rowNum, value, hiddenID = false, id = -1 ) {
   r = '<input class="form-control" required="required" name="attributes['
-  r +=  rowNum + '][' + name + ']" type="text" value="' + value + '" id="code">'
+  r +=  rowNum + '][' + name + ']" type="text" value="' + value + '">'
 
   if(hiddenID)
   {
     r +='<input class="form-control" required="required" name="attributes['
-    r +=  rowNum + '][id]" type="hidden" value="' + id + '" id="code">'
+    r +=  rowNum + '][id]" type="hidden" value="' + id + '">'
   }
 
   return r;

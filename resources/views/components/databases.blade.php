@@ -15,12 +15,12 @@
       {{Form::bsText('database', "Name of database", null, [''])}}
     </div>
     <div class="col-xs-4">
-      {{Form::bsText('username', "Username", null, [''])}}
+      {{Form::bsText('username_database', "Username For Database", null, [''])}}
     </div>
   </div>
   <div class="row">
     <div class="col-xs-6">
-      {{Form::bsText('password', "Password", null, [''])}}
+      {{Form::bsText('password_database', "Password For Database", null, [''])}}
     </div>
   </div>
   <div class="row">

@@ -62,7 +62,7 @@ class Database extends Model
 
       //Grab all the information about each student -- do this in chunks
       //Foreach student, add updated attribute info
-      $students_info = $second->table($this->table)->whereIn($this->uid_column, $uids)->get();
+      $students_info = $secondDB->table($this->table)->whereIn($this->uid_column, $uids)->get();
 
       foreach($students_info as $student_info)
       {
@@ -112,7 +112,7 @@ class Database extends Model
       $fail = false;
 
       try {
-          $results = $second->table($this->table)->limit(1)->get();
+          $results = $secondDB->table($this->table)->limit(1)->get();
       } catch (\Exception $e) {
           print_r('Check the connection info provided. If error continues, contact developer: ' . $e->getMessage() . "<br/><br/>");
           $fail = true;
