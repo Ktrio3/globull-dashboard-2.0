@@ -10,8 +10,8 @@ class Database extends Model
     //
     public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'driver', 'host', 'port', 'database', 'username',
-            'password', 'table', 'uid_column', 'student_type'];
+    protected $fillable = ['name', 'driver', 'host', 'port', 'database', 'username_database',
+            'password_database', 'table', 'uid_column', 'student_type'];
 
     private $mysql_Config_default = [
         'driver' => 'mysql',
@@ -148,8 +148,8 @@ class Database extends Model
       //Add common attributes
       $settings['host'] = $this->host;
       $settings['database'] = $this->database;
-      $settings['username'] = $this->username;
-      $settings['password'] = $this->password;
+      $settings['username'] = $this->username_database;
+      $settings['password'] = $this->password_database;
 
       return $settings;
     }
