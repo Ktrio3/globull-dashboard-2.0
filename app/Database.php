@@ -39,7 +39,7 @@ class Database extends Model
 
     public function attributes()
     {
-      return $this->belongsToMany('App\Attribute')->withPivot(['column']);
+      return $this->belongsToMany('App\Attribute')->withPivot(['column', 'message_column']);
     }
 
     public function student_type()
@@ -78,7 +78,7 @@ class Database extends Model
             //Fill with the given value
             $status = Status::where('code', $attribute->code . "-fillable")->first();
 
-            if($attribute->pivot->message_column != "")
+            if($attribute->pivot->message_column != "" && $attribute->pivot->message_column != null)
               $student->statuses()->attach($status->id, ['value' => $value, 'message' => $student_info->{$attribute->pivot->message_column}]);
             else
               $student->statuses()->attach($status->id, ['value' => $value]);
@@ -92,7 +92,7 @@ class Database extends Model
             if(!$status)
               return ['error' => "Could not find status " . $value . " for attribute " . $attribute->code];
 
-            if($attribute->pivot->message_column != "")
+            if($attribute->pivot->message_column != "" && $attribute->pivot->message_column != null)
             {
               $student->statuses()->attach($status->id, ['message' => $student_info->{$attribute->pivot->message_column}]);
             }
