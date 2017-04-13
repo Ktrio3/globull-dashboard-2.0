@@ -35,10 +35,9 @@ $(document).ready(function(){
           message_column = ''
           if(aData.hasOwnProperty('pivot'))
           {
-
             column = aData.pivot.column
             attribute_id = aData.pivot.attribute_id
-            if(typeof aData.pivot.message_column !== "undefined" && aData.pivot.message_column != "null")
+            if(typeof aData.pivot.message_column !== "undefined" && aData.pivot.message_column != null)
               message_column = aData.pivot.message_column
           }
           current_value = $('td:eq(0)', nRow).find("select").val()

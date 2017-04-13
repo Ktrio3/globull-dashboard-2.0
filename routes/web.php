@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth.admin'], function() {
         $database = Database::findOrFail($request->input('database'));
         $result = $database->run_update($request->input('year') . $request->input('semester'));
         if(isset($result['error']))
-          die($result['error']);
+          return redirect()->route('admin.upload')->with(['errors' => $result]);
         else
           return redirect()->route('admin.upload')->with(['status' => 'Upload successful']);
       })->name("database.run");
