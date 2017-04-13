@@ -121,7 +121,10 @@ class DatabaseController extends Controller
       {
         //Test that attribute exists, then add
         Attribute::findOrFail($attribute['attribute'])->whereHas('student_types', function ($query) use ($database) {$query->where('student_types.id', $database->student_type);});
-        $syncAttr[$attribute['attribute']] = ['column' => $attribute['column'], 'message_column' => $attribute['message_column']];
+        if(isset($attribute['message_column']))
+          $syncAttr[$attribute['attribute']] = ['column' => $attribute['column'], 'message_column' => $attribute['message_column']];
+        else
+          $syncAttr[$attribute['attribute']] = ['column' => $attribute['column']];
       }
 
       $database->attributes()->sync($syncAttr);
