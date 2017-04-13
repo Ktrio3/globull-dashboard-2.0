@@ -18,6 +18,9 @@
                   Column
               </th>
               <th>
+                  Message Column
+              </th>
+              <th>
                   Delete
               </th>
             </tr>

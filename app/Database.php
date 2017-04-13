@@ -78,7 +78,10 @@ class Database extends Model
             //Fill with the given value
             $status = Status::where('code', $attribute->code . "-fillable")->first();
 
-            $student->statuses()->attach($status->id, ['value' => $value]);
+            if($attribute->pivot->message_column != "")
+              $student->statuses()->attach($status->id, ['value' => $value, 'message' => $student_info->{$attribute->pivot->message_column}]);
+            else
+              $student->statuses()->attach($status->id, ['value' => $value]);
           }
           else
           {
@@ -89,7 +92,12 @@ class Database extends Model
             if(!$status)
               return ['error' => "Could not find status " . $value . " for attribute " . $attribute->code];
 
-            $student->statuses()->attach($status->id);
+            if($attribute->pivot->message_column != "")
+            {
+              $student->statuses()->attach($status->id, ['message' => $student_info->{$attribute->pivot->message_column}]);
+            }
+            else
+              $student->statuses()->attach($status->id);
           }
         }
         $student->save();
@@ -125,6 +133,12 @@ class Database extends Model
         {
           $fail = true;
           print_r("Could not find " . $attribute->name . " using " . $attribute->pivot->column . "<br/><br/>");
+        }
+
+        if($attribute->pivot->message_column != "" && !isset($results[0][$attribute->pivot->column]))
+        {
+          $fail = true;
+          print_r("Could not find " . $attribute->name . " message using " . $attribute->pivot->message_column . "<br/><br/>");
         }
       }
 

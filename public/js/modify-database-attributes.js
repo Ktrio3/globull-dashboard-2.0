@@ -11,34 +11,36 @@ $(document).ready(function(){
             "data": null,
             "defaultContent": "Is found in the following column:"
           },
-          { "data": "id" },
+          { "data": null },
+          { "data": null },
           {
               "className":      'details-remove',
               "orderable":      false,
               "searchable":     false,
               "data": null,
               "defaultContent": "<span style='color:red;font-size: 2em; margin-top:5px;' class='glyphicon glyphicon-remove'></span>"
-          },
+          }
         ],
         "columnDefs": [
           { "width": "30%", "targets": [0] },
           { "width": "30%", "targets": [2] },
-					{ "width": "10%", "targets": [3] },
+          { "width": "20%", "targets": [3] },
+					{ "width": "10%", "targets": [4] },
         ],
         "order": [[0, 'asc']],
         "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
           // Create inputs
-          if(!aData.hasOwnProperty('pivot'))
+          column = ''
+          attribute_id = ''
+          message_column = ''
+          if(aData.hasOwnProperty('pivot'))
           {
-            column = ''
-            attribute_id = ''
-          }
-          else
-          {
+
             column = aData.pivot.column
             attribute_id = aData.pivot.attribute_id
+            if(typeof aData.pivot.message_column !== "undefined")
+              message_column = aData.pivot.message_column
           }
-
           current_value = $('td:eq(0)', nRow).find("select").val()
           if(typeof current_value != "undefined")
             attribute_id = current_value
@@ -47,8 +49,13 @@ $(document).ready(function(){
           if(typeof current_value !== "undefined")
             column = current_value
 
+          current_value = $('td:eq(3)', nRow).find("input").val()
+          if(typeof current_value !== "undefined")
+            message_column = current_value
+
           $('td:eq(0)', nRow).html( createSelect("attribute", nRow._DT_RowIndex, attribute_id) );
           $('td:eq(2)', nRow).html( tableInput("column", nRow._DT_RowIndex, column) );
+          $('td:eq(3)', nRow).html( tableInputNotRequired("message_column", nRow._DT_RowIndex, message_column) );
         }
     });
 
@@ -100,6 +107,19 @@ function createSelect(name, rowNum, value, hiddenID = false, id = -1)
 
 function tableInput ( name, rowNum, value, hiddenID = false, id = -1 ) {
   r = '<input class="form-control" required="required" name="attributes['
+  r +=  rowNum + '][' + name + ']" type="text" value="' + value + '">'
+
+  if(hiddenID)
+  {
+    r +='<input class="form-control" required="required" name="attributes['
+    r +=  rowNum + '][id]" type="hidden" value="' + id + '">'
+  }
+
+  return r;
+}
+
+function tableInputNotRequired ( name, rowNum, value, hiddenID = false, id = -1 ) {
+  r = '<input class="form-control" name="attributes['
   r +=  rowNum + '][' + name + ']" type="text" value="' + value + '">'
 
   if(hiddenID)
