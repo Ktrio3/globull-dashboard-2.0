@@ -12,6 +12,7 @@
 */
 
 use App\Database;
+use Illuminate\Http\Request;
 
 //===================================================================
 // Authenticated Site
@@ -61,6 +62,11 @@ Route::group(['middleware' => 'auth.admin'], function() {
         $database = Database::findOrFail($id);
         $database->test();
       })->name("database.test");
+
+      Route::post('databases/run', function (Request $request){
+        $database = Database::findOrFail($request->input('database'));
+        $database->run_update($request->input('year') . $request->input('semester'));
+      })->name("database.run");
 
       Route::post('/databases/{id}/update', 'DatabaseController@update')->name('database.update');
 

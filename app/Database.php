@@ -56,13 +56,13 @@ class Database extends Model
       })->pluck("UID");
 
       //Run the update with the information provided
-      Config::set('database.connections.newConnect', $this->set_database_array());
+      config(['database.connections.newConnect' => $this->set_database_array()]);
 
       $secondDB = \DB::connection('newConnect');
 
       //Grab all the information about each student -- do this in chunks
       //Foreach student, add updated attribute info
-      $students_info = $secondDB->table($this->table)->whereIn($this->uid_column, $uids)->get();
+      $students_info = $secondDB->table($this->attributes['table'])->whereIn($this->uid_column, $uids)->get();
 
       foreach($students_info as $student_info)
       {
@@ -107,12 +107,12 @@ class Database extends Model
       $secondDB = \DB::connection('newConnect');
 
       //Query we need for testing. Non-testing removes limit and adds where
-      //$second->table($this->table)->whereIn($this->uid_column, [])->get(); //Production
+      //$second->table($this->attributes['table'])->whereIn($this->uid_column, [])->get(); //Production
 
       $fail = false;
 
       try {
-          $results = $secondDB->table($this->table)->limit(1)->get();
+          $results = $secondDB->table($this->attributes['table'])->limit(1)->get();
       } catch (\Exception $e) {
           print_r('Check the connection info provided. If error continues, contact developer: ' . $e->getMessage() . "<br/><br/>");
           $fail = true;

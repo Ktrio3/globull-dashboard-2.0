@@ -28,7 +28,6 @@ $(document).ready(function(){
         "order": [[0, 'asc']],
         "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
           // Create inputs
-
           if(!aData.hasOwnProperty('pivot'))
           {
             column = ''
@@ -41,7 +40,7 @@ $(document).ready(function(){
           }
 
           current_value = $('td:eq(0)', nRow).find("select").val()
-          if(typeof current_value != undefined)
+          if(typeof current_value != "undefined")
             attribute_id = current_value
 
           current_value = $('td:eq(2)', nRow).find("input").val()
