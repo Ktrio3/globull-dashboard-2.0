@@ -69,7 +69,7 @@ Route::group(['middleware' => 'auth.admin'], function() {
         if(isset($result['error']))
           die($result['error']);
         else
-          redirect()->route('admin.upload')->with(['status' => 'Upload successful']);
+          return redirect()->route('admin.upload')->with(['status' => 'Upload successful']);
       })->name("database.run");
 
       Route::post('/databases/{id}/update', 'DatabaseController@update')->name('database.update');
