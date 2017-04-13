@@ -49,6 +49,7 @@ class Database extends Model
 
     public function run_update($semester)
     {
+      ini_set('max_execution_time', 300); //300 seconds = 5 minutes
       //Grab all the students in the semester given
       $type = $this->student_type;
       $uids = Student::where('admit_semester', $semester)->whereHas('student_types', function($query) use($type){
@@ -66,16 +67,16 @@ class Database extends Model
 
       foreach($students_info as $student_info)
       {
-        $student = Student::where('UID', $student_info[$this->uid_column]);
+        $student = Student::where('UID', $student_info->{$this->uid_column})->first();
 
         foreach($this->attributes()->get() as $attribute)
         {
-          $value = $student_info[$attribute->pivot->column];
+          $value = $student_info{$attribute->pivot->column};
 
           if($attribute->is_info)
           {
             //Fill with the given value
-            $status = Status::where('code', $attribute->code . "-fillable")->get();
+            $status = Status::where('code', $attribute->code . "-fillable")->first();
 
             $student->statuses()->attach($status->id, ['value' => $value]);
           }
@@ -83,7 +84,7 @@ class Database extends Model
           {
             //Check that status exists, then attach
             $status = Status::where('code', $value)
-                ->where('attribute_id', $attribute->id)->get();
+                ->where('attribute_id', $attribute->id)->first();
 
             if(!$status)
               return ['error' => "Could not find status " . $value . " for attribute " . $attribute->code];
