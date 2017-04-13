@@ -71,7 +71,7 @@ class Database extends Model
 
         foreach($this->attributes()->get() as $attribute)
         {
-          $value = $student_info{$attribute->pivot->column};
+          $value = $student_info->{$attribute->pivot->column};
 
           if($attribute->is_info)
           {
