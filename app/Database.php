@@ -135,7 +135,7 @@ class Database extends Model
           print_r("Could not find " . $attribute->name . " using " . $attribute->pivot->column . "<br/><br/>");
         }
 
-        if($attribute->pivot->message_column != "" && !isset($results[0]{$attribute->pivot->column}))
+        if($attribute->pivot->message_column != "" && !isset($results[0]->{$attribute->pivot->column}))
         {
           $fail = true;
           print_r("Could not find " . $attribute->name . " message using " . $attribute->pivot->message_column . "<br/><br/>");
