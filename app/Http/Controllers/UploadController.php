@@ -64,7 +64,7 @@ class UploadController extends Controller
       $final = [];
       $keys = Attribute::orderBy('code')->pluck('code')->toArray();
 
-      Student::with(['statuses.attribute', 'student_types'])->chunk(100, function ($students) use($keys, $final) {
+      Student::with(['statuses.attribute', 'student_types'])->chunk(100, function ($students) use($keys, &$final) {
           foreach ($students as $student) {
               //
             $value = [];
