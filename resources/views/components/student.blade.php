@@ -30,7 +30,6 @@
       <div class="col-xs-12" style="margin-bottom:1.5em;">
         <h3>{{$attribute_type->name}} <!--<span class="label label-primary pull-right">Last Updated: <span class="time">11 March 2016 14:28 UTC+5</span></span>--></h3>
         <p>{{$attribute_type->description}}</p>
-        <?php //var_dump($student) ?>
         <table class="table table-responsive">
     			<thead>
             <tr>
