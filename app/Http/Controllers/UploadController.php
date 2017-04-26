@@ -123,11 +123,23 @@ class UploadController extends Controller
       $student = new Student;
       $status = 'Previewing Type(s): ';
 
+      $attribute_types = [];
+      $attribute_types_names = [];
+
       foreach($request->get('student_types') as $type)
       {
         $newType = StudentType::where('id', $type)->first();
         $status .= $newType->name . ', ';
         $student->student_types->add($newType);
+
+        foreach($newType->attribute_types() as $type)
+        {
+          if(!in_array($type->name, $attribute_types_names))
+          {
+            $attribute_types[] = $type;
+            $attribute_types_names[] = $type->name;
+          }
+        }
       }
 
       //Replace last comma with period
@@ -140,7 +152,7 @@ class UploadController extends Controller
 
       session(['status' => $status]);
 
-      return view('admin.student-view', ['student' => $student]);
+      return view('admin.student-view', ['student' => $student, 'attribute_types' => $attribute_types]);
     }
 
     public function update_student(Request $request, $id)
