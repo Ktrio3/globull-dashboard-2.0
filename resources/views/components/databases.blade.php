@@ -31,7 +31,8 @@
       {{Form::bsText('uid_column', "Name of UID column", null, [''])}}
     </div>
     <div class="col-xs-4">
-      {{Form::bsSelect('student_type', "Student Type", App\StudentType::pluck('name', 'id'), "", "Select a student type", ['required', 'id' => 'roles'])}}
+      <?php $vall = ''; if(isset($database->student_type)) $vall = $database->student_type;?>
+      {{Form::bsSelect('student_type', "Student Type", App\StudentType::pluck('name', 'id'), $vall , "Select a student type", ['required', 'id' => 'roles'])}}
     </div>
   </div>
   <div class="row">
