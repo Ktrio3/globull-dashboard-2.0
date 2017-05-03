@@ -152,7 +152,7 @@ class UploadController extends Controller
 
       session(['status' => $status]);
 
-      return view('admin.student-view', ['student' => $student, 'attribute_types' => $attribute_types]);
+      return view('admin.student-preview', ['student' => $student, 'attribute_types' => $attribute_types]);
     }
 
     public function update_student(Request $request, $id)
